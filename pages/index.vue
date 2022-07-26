@@ -6,7 +6,7 @@
 <script>
 export default {
   name: 'IndexPage',
-  layout (context) {
+  layout () {
     return 'default'
   }
 }
