@@ -15,7 +15,6 @@ export default {
   async mounted() {
     await this.$store.dispatch('albums/loadAlbums', 1)
     this.loading = false
-    console.log(this.singers)
   },
   computed: {
     fullData() {
@@ -23,11 +22,26 @@ export default {
     },
     albums() {
       const albums = this.fullData.data?.collection?.album
-      let copyAlbums = Object.assign({}, albums)
+      const copyAlbums = JSON.parse(JSON.stringify(albums))
+
+      for (let key in copyAlbums) {
+        let currentAlbum = copyAlbums[key]
+        currentAlbum.parent = this.singers[currentAlbum.peopleIds[0]]
+      }
+
       return copyAlbums
     },
     singers() {
-      return this.fullData.data.collection.people
+      const people = this.fullData.data.collection.people
+      const copyPeople = JSON.parse(JSON.stringify(people))
+
+      for (let key in copyPeople) {
+        if (copyPeople[key].typeName !== 'Исполнитель') {
+          delete copyPeople[key]
+        }
+      }
+
+      return copyPeople
     }
   }
 }

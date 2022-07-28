@@ -2,7 +2,7 @@
 .card
   img.card__image(:src='album.coverUrl' alt='img')
   .card__title {{album.name}} • {{album.year}}
-  .card__singer Исполнитель
+  .card__singer {{album.parent.name}}
   .card__tracks Треков: {{album.trackCount}}
 </template>
 
@@ -13,9 +13,6 @@ export default {
     album: {
       type: Object
     }
-  },
-  mounted() {
-    console.log(this.album)
   }
 }
 </script>
