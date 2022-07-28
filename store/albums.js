@@ -1,3 +1,5 @@
+import api from '../api/config'
+
 export const state = () => ({
   albums: {}
 })
@@ -12,7 +14,7 @@ export const actions = {
   async loadAlbums({commit}, page) {
     const albums = await this.$axios({
       method: 'GET',
-      url: process.env.baseApi,
+      url: api.baseUrl,
       params: {
         method: 'product.getNews',
         page: page,
