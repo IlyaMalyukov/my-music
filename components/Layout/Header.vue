@@ -5,10 +5,20 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~styles/mixins.scss';
+
 .header {
   background-color: #007AFF;
   width: 100%;
-  padding: 15px 30px;
+  padding: 15px 100px;
+
+  @include phones {
+    padding: 15px 50px;
+  }
+
+  @include phones-small {
+    padding: 15px 15px;
+  }
 }
 
 .nav {

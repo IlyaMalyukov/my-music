@@ -39,9 +39,9 @@ export default {
     },
     prepareAlbum() {
       const singerId = this.album.peopleIds.find(i => {
-        return this.people[i].typeName === 'Исполнитель'
+        // return this.people[i].typeName === 'Исполнитель'
+        return this.people[i].typeName
       })
-      console.log(this.people)
       this.album.parent = this.people[singerId]
     }
   },
