@@ -11,3 +11,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.main-page {
+  width: 100%;
+  height: 100%;
+}
+</style>
