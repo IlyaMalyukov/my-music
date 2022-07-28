@@ -34,47 +34,48 @@ export default {
       const newAlbums = this.albums
       this.allAlbums = Object.values({...this.allAlbums, ...newAlbums})
       this.preLoad = false
-      console.log(this.allAlbums)
     }
   },
   computed: {
-    fullData() {
-      return this.$store.getters['albums/albums']
-    },
     albums() {
-      const albums = this.fullData.data?.collection?.album
+      const albums = this.$store.getters['albums/albums']
       const copyAlbums = JSON.parse(JSON.stringify(albums))
 
       for (let key in copyAlbums) {
         let currentAlbum = copyAlbums[key]
-        currentAlbum.parent = this.singers[currentAlbum.peopleIds[0]]
+        let singerId = currentAlbum.peopleIds.find(i => {
+          return this.people[i].typeName === 'Исполнитель'
+        })
+
+        currentAlbum.parent = this.people[singerId]
       }
 
       return copyAlbums
     },
-    singers() {
-      const people = this.fullData.data.collection.people
-      const copyPeople = JSON.parse(JSON.stringify(people))
-
-      for (let key in copyPeople) {
-        if (copyPeople[key].typeName !== 'Исполнитель') {
-          delete copyPeople[key]
-        }
-      }
-
-      return copyPeople
+    people() {
+      return this.$store.getters['albums/people']
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '~styles/mixins.scss';
+
 .catalog {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 20px;
   padding-bottom: 80px;
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include tablets {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .more-albums {

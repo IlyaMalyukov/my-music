@@ -1,30 +1,32 @@
 import api from '../api/config'
 
 export const state = () => ({
-  albums: {}
+  fullData: {}
 })
 
 export const mutations = {
-  setAlbums(state, albums) {
-    state.albums = albums
+  setAlbums(state, data) {
+    state.fullData = data
   },
 }
 
 export const actions = {
   async loadAlbums({commit}, page) {
-    const albums = await this.$axios({
+    const data = await this.$axios({
       method: 'GET',
       url: api.baseUrl,
       params: {
         method: 'product.getNews',
         page: page,
-        limit: 10
+        limit: 8
       }
     })
-    commit('setAlbums', albums)
+    commit('setAlbums', data.data)
   }
 }
 
 export const getters = {
-  albums: (state) => state.albums,
+  fullData: (state) => state.fullData,
+  albums: (state) => state.fullData.collection.album,
+  people: (state) => state.fullData.collection.people
 }
