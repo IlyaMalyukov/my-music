@@ -31,15 +31,15 @@ export default {
       this.preLoad = true
       this.currentPage += 1
       await this.$store.dispatch('albums/loadAlbums', this.currentPage)
-      const newAlbums = this.albums
+      
+      const newAlbums = this.copyAlbums
       this.allAlbums = Object.values({...this.allAlbums, ...newAlbums})
       this.preLoad = false
     }
   },
   computed: {
-    albums() {
-      const albums = this.$store.getters['albums/albums']
-      const copyAlbums = JSON.parse(JSON.stringify(albums))
+    copyAlbums() {
+      const copyAlbums = JSON.parse(JSON.stringify(this.albums))
 
       for (let key in copyAlbums) {
         let currentAlbum = copyAlbums[key]
@@ -51,6 +51,9 @@ export default {
       }
 
       return copyAlbums
+    },
+    albums() {
+      return this.$store.getters['albums/albums']
     },
     people() {
       return this.$store.getters['albums/people']
