@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~styles/mixins.scss';
+
 .card {
   display: flex;
   box-shadow: none;
@@ -33,6 +35,10 @@ export default {
     font-size: 19px;
     line-height: 1.2;
     font-weight: 700;
+
+    @include phones {
+      font-size: 14px;
+    }
   }
 
   &__singer {
@@ -40,6 +46,10 @@ export default {
     font-size: 19px;
     line-height: 1.2;
     font-weight: 400;
+
+    @include phones {
+      font-size: 14px;
+    }
   }
 
   &__tracks {
@@ -48,6 +58,10 @@ export default {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
+
+    @include phones {
+      font-size: 10px;
+    }
   }
 }
 </style>
