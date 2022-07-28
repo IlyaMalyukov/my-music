@@ -4,7 +4,8 @@
     .catalog
       AlbumCard(
         v-for='album in allAlbums'
-        :album='album')
+        :album='album'
+        @click.prevent='openAlbum(album.id)')
     .more-albums
       UIPreLoader(v-if='preLoad')  
       button(
@@ -35,6 +36,10 @@ export default {
       const newAlbums = this.copyAlbums
       this.allAlbums = Object.values({...this.allAlbums, ...newAlbums})
       this.preLoad = false
+    },
+    openAlbum(id) {
+      console.log(id)
+      this.$router.push(`/albums/${id}`)
     }
   },
   computed: {
