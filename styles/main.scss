@@ -1,1 +1,7 @@
-@import './my-icon-font/style.scss'
+@import './my-icon-font/style.scss';
+@import './fonts/Roboto/stylesheet.scss';
+
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+}

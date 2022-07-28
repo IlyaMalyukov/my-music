@@ -8,6 +8,6 @@
 
 <style lang="scss" scoped>
   .container {
-    padding: 30px 100px;
+    padding: 30px 100px 100px;
   }
 </style>
