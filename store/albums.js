@@ -18,7 +18,7 @@ export const actions = {
       params: {
         method: 'product.getNews',
         page: page,
-        limit: 10
+        limit: 8
       }
     })
     commit('setAlbums', data.data)
