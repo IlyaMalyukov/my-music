@@ -1,13 +1,14 @@
 <template lang="pug">
   .player
-    button.player__button(
-      v-if='!isPlay'
-      @click.prevent='play')
-      .icon-play3.icon
-    button.player__button(
-      v-else
-      @click.prevent='pause')
-      .icon-pause2.icon
+    .player__buttons
+      button.player__button(
+        v-if='!isPlay'
+        @click.prevent='play')
+        .icon-play3.icon
+      button.player__button(
+        v-else
+        @click.prevent='pause')
+        .icon-pause2.icon
 </template>
 
 <script>
