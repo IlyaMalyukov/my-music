@@ -4,7 +4,7 @@
     .info
       .info__author {{author.name}}
       .info__name {{track.name}}
-      .info__duration {{track.duration}}
+      .info__duration {{duration}} 
 </template>
 
 <script>
@@ -16,6 +16,12 @@ export default {
     },
     author: {
       type: Object
+    }
+  },
+  computed: {
+    duration() {
+      const duration = this.$moment.duration(this.track.duration, 'seconds')._data
+      return `${duration.minutes}:${duration.seconds}`
     }
   }
 }
