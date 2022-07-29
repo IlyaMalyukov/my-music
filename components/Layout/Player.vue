@@ -9,6 +9,10 @@
         v-else
         @click.prevent='pause')
         .icon-pause2.icon
+    .track-info
+      .track-info__text.track-info__author Исполнитель
+      .track-info__text.track-info__name Альбом
+      .track-info__duration 3:17
 </template>
 
 <script>
@@ -55,6 +59,8 @@ export default {
   padding: 15px 100px;
   position: fixed;
   bottom: 0;
+  display: flex;
+  align-items: center;
 
   @include phones {
     padding: 15px 50px;
@@ -80,5 +86,33 @@ export default {
 .icon {
   font-size: 25px;
   color: #4a4a4a;
+}
+
+.track-info {
+  padding-left: 10px;
+  font-size: 15px;
+  line-height: 1.3;
+
+  &__text {
+    white-space: nowrap;
+    width: 238px;
+    overflow: hidden;
+  }
+
+  &__author {
+    font-weight: 400;
+    color: #A7A7A7;
+    text-overflow: ellipsis;
+  }
+
+  &__name {
+    font-weight: 700;
+    color: #4F4F4F;
+  }
+
+  &__duration {
+    font-weight: 400;
+    color: #A7A7A7;
+  }
 }
 </style>
