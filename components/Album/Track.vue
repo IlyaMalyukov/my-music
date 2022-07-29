@@ -48,6 +48,10 @@ export default {
   width: 100%;
   max-width: 377px;
 
+  &:hover {
+    transform: scale(1.05)
+  }
+
   @include desktop {
     max-width: 300px;
   }

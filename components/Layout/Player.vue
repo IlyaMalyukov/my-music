@@ -1,7 +1,8 @@
 <template lang="pug">
 .player-wrapper
   .player(v-if='trackName')
-    .player__buttons
+    .player__button-wrapper
+      img.player__img(:src='cover')
       button.player__button(
         v-if='!isPlay'
         @click.prevent='play')
@@ -51,6 +52,9 @@ export default {
     duration() {
       return this.currentTrackData?.duration
     },
+    cover() {
+      return this.currentTrackData?.track?.coverUrl
+    },
     currentTrackUrl() {
       if (this.firstTrack) {
         return 'https://enazadevkz.cdnvideo.ru/tank1/sony/A10301A0004574902L_20210331042345765/resources/ad5a61f35b99.mp3'
@@ -89,7 +93,23 @@ export default {
     padding: 15px 15px;
   }
 
+  &__button-wrapper {
+    position: relative;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    position: absolute;
+    width: 60px;
+    opacity: .5;
+    z-index: 1;
+  }
+
   &__button {
+    z-index: 2;
     cursor: pointer;
     border: 2px solid #4a4a4a;
     width: 50px;
@@ -113,15 +133,15 @@ export default {
   line-height: 1.3;
 
   &__text {
-    white-space: nowrap;
     width: 238px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     overflow: hidden;
   }
 
   &__author {
     font-weight: 400;
     color: #A7A7A7;
-    text-overflow: ellipsis;
   }
 
   &__name {
