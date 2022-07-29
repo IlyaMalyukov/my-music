@@ -3,6 +3,9 @@
     img.logo(:src='require("~/assets/images/logo.svg")')
     .nav
       NuxtLink.nav__link(to='/') Каталог
+      .nav__link(to='/') Рекомендации
+      .nav__link(to='/') Моя музыка
+      .nav__link(to='/') Радио
     .icon.icon-search
     .icon.icon-menu
 </template>
@@ -28,12 +31,17 @@
 }
 
 .nav {
-  @include phones {
+  display: flex;
+
+  @include tablets {
     display: none;
   }
 
   &__link {
+    cursor: pointer;
     color: #FFF;
+    padding: 0 10px;
+    font-size: 15px;
   }
 }
 
@@ -41,7 +49,7 @@
   color: #FFF;
 
   &-search {
-    @include phones {
+    @include tablets {
       display: none;
     }
   }
@@ -50,7 +58,7 @@
     display: none;
     font-size: 25px;
 
-    @include phones {
+    @include tablets {
       display: block;
     }
   }
