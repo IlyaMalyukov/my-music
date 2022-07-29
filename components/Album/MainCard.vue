@@ -3,7 +3,7 @@
   img.card__image(:src='album.coverUrl' alt='img')
   .info
     .info__title {{album.name}}
-    .info__singer {{album.parent.name}}
+    .info__author {{author.name}}
     .info__tracks Треков: {{album.trackCount}}
 </template>
 
@@ -12,6 +12,9 @@ export default {
   name: 'MainCard',
   props: {
     album: {
+      type: Object
+    },
+    author: {
       type: Object
     }
   }
@@ -60,7 +63,7 @@ export default {
     }
   }
 
-  &__singer {
+  &__author {
     padding-top: 7px;
     color: #4F4F4F;
     font-size: 19px;

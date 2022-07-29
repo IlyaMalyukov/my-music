@@ -48,12 +48,12 @@ export default {
 
       for (let key in copyAlbums) {
         let currentAlbum = copyAlbums[key]
-        let singerId = currentAlbum.peopleIds.find(i => {
+        let authorId = currentAlbum.peopleIds.find(i => {
           // return this.people[i].typeName === 'Исполнитель'
           return this.people[i]
         })
 
-        currentAlbum.parent = this.people[singerId]
+        currentAlbum.parent = this.people[authorId]
       }
 
       return copyAlbums

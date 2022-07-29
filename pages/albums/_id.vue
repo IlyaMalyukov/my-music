@@ -1,7 +1,12 @@
 <template lang="pug">
   UILoader(v-if='loading')
   .album-page(v-else)
-    AlbumMainCard(:album='album')
+    AlbumMainCard(
+      :album='album'
+      :author='author')
+    AlbumTracks(
+      :tracks='tracks'
+      :author='author')
 </template>
 
 <script>
@@ -10,10 +15,10 @@ import api from '@/api/config'
 export default {
   layout: 'default',
   asyncData: () => ({
-    fullData: {},
     album: {},
     people: {},
     tracks: {},
+    author: {},
     loading: true
   }),
   async mounted() {
@@ -32,7 +37,7 @@ export default {
 
       this.album = fullData.data.collection.album[this.albumId]
       this.people = fullData.data.collection.people
-      this.tracks = fullData.data.collection.tracks
+      this.tracks = fullData.data.collection.track
 
       this.prepareAlbum()
       this.loading = false
@@ -40,9 +45,10 @@ export default {
     prepareAlbum() {
       const singerId = this.album.peopleIds.find(i => {
         // return this.people[i].typeName === 'Исполнитель'
-        return this.people[i].typeName
+        return this.people[i]
       })
-      this.album.parent = this.people[singerId]
+
+      this.author = this.people[singerId]
     }
   },
   computed: {

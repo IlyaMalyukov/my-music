@@ -2,7 +2,7 @@
 .card(@click.prevent='openAlbum(album.id)')
   img.card__image(:src='album.coverUrl' alt='img')
   .card__title {{album.name}} • {{album.year}}
-  .card__singer {{album.parent.name}}
+  .card__author {{album.parent.name}}
   .card__tracks Треков: {{album.trackCount}}
 </template>
 
@@ -47,7 +47,7 @@ export default {
     }
   }
 
-  &__singer {
+  &__author {
     color: #A7A7A7;
     font-size: 19px;
     line-height: 1.2;
