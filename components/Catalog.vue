@@ -4,7 +4,8 @@
     .catalog
       AlbumCard(
         v-for='album in allAlbums'
-        :album='album')
+        :album='album'
+        @click.prevent='openAlbum(album.id)')
     .more-albums
       UIPreLoader(v-if='preLoad')  
       button(
@@ -35,6 +36,10 @@ export default {
       const newAlbums = this.copyAlbums
       this.allAlbums = Object.values({...this.allAlbums, ...newAlbums})
       this.preLoad = false
+    },
+    openAlbum(id) {
+      console.log(id)
+      this.$router.push(`/albums/${id}`)
     }
   },
   computed: {
@@ -43,11 +48,12 @@ export default {
 
       for (let key in copyAlbums) {
         let currentAlbum = copyAlbums[key]
-        let singerId = currentAlbum.peopleIds.find(i => {
-          return this.people[i].typeName === 'Исполнитель'
+        let authorId = currentAlbum.peopleIds.find(i => {
+          // return this.people[i].typeName === 'Исполнитель'
+          return this.people[i]
         })
 
-        currentAlbum.parent = this.people[singerId]
+        currentAlbum.parent = this.people[authorId]
       }
 
       return copyAlbums

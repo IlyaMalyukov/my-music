@@ -1,22 +1,21 @@
 <template lang="pug">
-.card(@click.prevent='openAlbum(album.id)')
+.card
   img.card__image(:src='album.coverUrl' alt='img')
-  .card__title {{album.name}} • {{album.year}}
-  .card__author {{album.parent.name}}
-  .card__tracks Треков: {{album.trackCount}}
+  .info
+    .info__title {{album.name}}
+    .info__author {{author.name}}
+    .info__tracks Треков: {{album.trackCount}}
 </template>
 
 <script>
 export default {
-  name: 'AlbumCard',
+  name: 'MainCard',
   props: {
     album: {
       type: Object
-    }
-  },
-  methods: {
-    openAlbum(id) {
-      this.$router.push(`/albums/${id}`)
+    },
+    author: {
+      type: Object
     }
   }
 }
@@ -28,27 +27,45 @@ export default {
 .card {
   display: flex;
   box-shadow: none;
-  flex-direction: column;
-  cursor: pointer;
+
+  @include phones {
+    flex-direction: column;
+  }
+
+  @include phones-small {
+    max-width: 278px;
+    margin: 0 auto;
+  }
 
   &__image {
     border-radius: 20px;
+    max-width: 278px;
+  }
+}
+
+.info {
+  padding-left: 55px;
+
+  @include phones {
+    padding-left: 0;
+    align-self: flex-start;
   }
 
   &__title {
     padding-top: 15px;
     color: #4F4F4F;
-    font-size: 19px;
+    font-size: 48px;
     line-height: 1.2;
     font-weight: 700;
 
     @include phones {
-      font-size: 14px;
+      font-size: 24px;
     }
   }
 
   &__author {
-    color: #A7A7A7;
+    padding-top: 7px;
+    color: #4F4F4F;
     font-size: 19px;
     line-height: 1.2;
     font-weight: 400;
@@ -59,14 +76,14 @@ export default {
   }
 
   &__tracks {
-    padding-top: 10px;
+    padding-top: 7px;
     color: #A7A7A7;
-    font-size: 14px;
+    font-size: 19px;
     line-height: 1.2;
     font-weight: 400;
 
     @include phones {
-      font-size: 10px;
+      font-size: 14px;
     }
   }
 }

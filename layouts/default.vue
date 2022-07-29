@@ -1,7 +1,7 @@
 <template lang="pug">
   .page
     LayoutHeader
-    .container
+    .app-container
       Nuxt
     LayoutPlayer
 </template>
@@ -9,7 +9,7 @@
 <style lang="scss" scoped>
 @import '~styles/mixins.scss';
 
-  .container {
+  .app-container {
     padding: 30px 100px 100px;
 
     @include phones {
