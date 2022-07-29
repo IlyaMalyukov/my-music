@@ -1,5 +1,6 @@
 <template lang="pug">
-  .player
+.player-wrapper
+  .player(v-if='trackName')
     .player__buttons
       button.player__button(
         v-if='!isPlay'
@@ -10,9 +11,9 @@
         @click.prevent='pause')
         .icon-pause2.icon
     .track-info
-      .track-info__text.track-info__author Исполнитель
-      .track-info__text.track-info__name Альбом
-      .track-info__duration 3:17
+      .track-info__text.track-info__author {{authorName}}
+      .track-info__text.track-info__name {{trackName}}
+      .track-info__duration {{duration}}
 </template>
 
 <script>
@@ -38,12 +39,30 @@ export default {
     }
   },
   computed: {
+    currentTrackData() {
+      return this.$store.getters['player/currentTrackData']
+    },
+    trackName() {
+      return this.currentTrackData?.track?.name
+    },
+    authorName() {
+      return this.currentTrackData?.author?.name
+    },
+    duration() {
+      return this.currentTrackData?.duration
+    },
     currentTrackUrl() {
       if (this.firstTrack) {
         return 'https://enazadevkz.cdnvideo.ru/tank1/sony/A10301A0004574902L_20210331042345765/resources/ad5a61f35b99.mp3'
       }
 
       return 'https://enazadevkz.cdnvideo.ru/tank3/medialand/2021_05_12/1.mp3'
+    }
+  },
+  watch: {
+    trackName() {
+      this.play()
+      this.firstTrack = !this.firstTrack
     }
   }
 
