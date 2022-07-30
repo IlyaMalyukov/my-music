@@ -1,11 +1,22 @@
 <template lang="pug">
   .page
-    LayoutHeader
+    LayoutHeader(@open-menu='isOpenMenu = true')
     .app-container
       Nuxt
     no-ssr  
       LayoutPlayer
+    LayoutMobileMenu(
+      v-if='isOpenMenu'
+      @close-menu='isOpenMenu = false')
 </template>
+
+<script>
+export default {
+  data: () => ({
+    isOpenMenu: false
+  })
+}
+</script>
 
 <style lang="scss" scoped>
 @import '~styles/mixins.scss';

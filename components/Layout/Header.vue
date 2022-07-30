@@ -8,7 +8,7 @@
       .nav__link Моя музыка
       .nav__link Радио
     .icon.icon-search
-    .icon.icon-menu
+    .icon.icon-menu(@click.prevent='$emit("open-menu")')
 </template>
 
 <style lang="scss" scoped>
@@ -48,6 +48,7 @@
 
 .icon {
   color: #FFF;
+  cursor: pointer;
 
   &-search {
     @include tablets {
