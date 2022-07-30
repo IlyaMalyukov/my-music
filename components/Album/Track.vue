@@ -11,18 +11,16 @@
 export default {
   name: 'Track',
   props: {
-    track: {
-      type: Object
-    },
-    author: {
-      type: Object
-    }
+    track: Object,
+    author: Object,
+    people: Object
   },
   methods: {
     playTrack() {
       let trackData = {
         track: this.track,
         author: this.author,
+        singers: this.singers,
         duration: this.duration
       }
 
@@ -40,6 +38,19 @@ export default {
       const seconds = String(duration % 60).padStart(2, '0')
 
       return `${minutes}:${seconds}`
+    },
+    singers() {
+      let singersNames = []
+      singersNames.push(this.author?.name)
+
+      this.track.peopleIds.forEach(i => {
+        let singerName = this.people[i].name
+        if (!singersNames.includes(singerName)) {
+          singersNames.push(singerName)
+        }
+      })
+
+      return singersNames.join(', ')
     }
   }
 }

@@ -3,7 +3,8 @@
     AlbumTrack(
       v-for='track in tracks'
       :track='track'
-      :author='author')
+      :author='author'
+      :people='people')
 </template>
 
 <script>
@@ -11,7 +12,8 @@ export default {
   name: 'Tracks',
   props: {
     tracks: Object,
-    author: Object
+    author: Object,
+    people: Object
   }
 }
 </script>

@@ -6,7 +6,8 @@
       :author='author')
     AlbumTracks(
       :tracks='tracks'
-      :author='author')
+      :author='author'
+      :people='people')
 </template>
 
 <script>

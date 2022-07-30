@@ -12,7 +12,7 @@
         @click.prevent='pause')
         .icon-pause2.icon
     .track-info
-      .track-info__text.track-info__author {{authorName}}
+      .track-info__text.track-info__author {{singers}}
       .track-info__text.track-info__name {{trackName}}
       .track-info__duration {{duration}}
 </template>
@@ -48,6 +48,9 @@ export default {
     },
     authorName() {
       return this.currentTrackData?.author?.name
+    },
+    singers() {
+      return this.currentTrackData?.singers
     },
     duration() {
       return this.currentTrackData?.duration
