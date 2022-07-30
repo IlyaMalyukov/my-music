@@ -2,6 +2,8 @@
   .menu
     .content
       .icon-cross(@click.prevent='$emit("close-menu")')
+      NuxtLink(to='/')
+        img.logo(:src='require("~/assets/images/logo.svg")')
       .nav(@click.prevent='$emit("close-menu")')
         NuxtLink.nav__link(to='/') Каталог
         .nav__link Рекомендации
@@ -28,6 +30,10 @@
   height: 100%;
 }
 
+.logo {
+  padding-bottom: 25px;
+}
+
 .nav {
   text-align: center;
 
@@ -36,6 +42,10 @@
     color: #FFF;
     font-size: 25px;
     padding-bottom: 10px;
+
+    &:hover {
+      color: #82beff;
+    }
   }
 }
 
