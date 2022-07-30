@@ -3,7 +3,8 @@
     LayoutHeader
     .app-container
       Nuxt
-    LayoutPlayer
+    no-ssr  
+      LayoutPlayer
 </template>
 
 <style lang="scss" scoped>

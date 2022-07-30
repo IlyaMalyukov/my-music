@@ -1,5 +1,5 @@
 <template lang="pug">
-  .track
+  .track(@click.prevent='playTrack')
     img.track__image(:src='track.coverUrl' :alt='track.name')
     .info
       .info__author {{author.name}}
@@ -18,10 +18,27 @@ export default {
       type: Object
     }
   },
+  methods: {
+    playTrack() {
+      let trackData = {
+        track: this.track,
+        author: this.author,
+        duration: this.duration
+      }
+
+      this.$store.dispatch('player/assignTrackData', trackData)
+    }
+  },
   computed: {
     duration() {
-      const duration = this.$moment.duration(this.track.duration, 'seconds')._data
-      return `${duration.minutes}:${duration.seconds}`
+      // const duration = this.$moment.duration(this.track.duration, 'seconds')._data
+      // return `${duration.minutes}:${duration.seconds}`
+
+      const duration = this.track.duration
+      const minutes = Math.floor(duration / 60)
+      const seconds = String(duration % 60).padStart(2, '0')
+
+      return `${minutes}:${seconds}`
     }
   }
 }
@@ -31,10 +48,15 @@ export default {
 @import '~styles/mixins.scss';
 
 .track {
+  cursor: pointer;
   display: flex;
   margin: 0 35px 30px 0;
   width: 100%;
   max-width: 377px;
+
+  &:hover {
+    transform: scale(1.05)
+  }
 
   @include desktop {
     max-width: 300px;

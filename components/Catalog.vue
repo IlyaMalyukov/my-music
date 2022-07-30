@@ -38,7 +38,6 @@ export default {
       this.preLoad = false
     },
     openAlbum(id) {
-      console.log(id)
       this.$router.push(`/albums/${id}`)
     }
   },
