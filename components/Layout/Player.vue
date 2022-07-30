@@ -26,20 +26,20 @@ export default {
   name: 'Player',
   data: () => ({
     soundManager: soundManager,
-    firstTrack: true,
-    isPlay: false
+    isFirstTrack: true
   }),
   methods: {
     play() {
-      this.soundManager.play('base', this.currentTrackUrl)
-      this.isPlay = true
+      this.$store.dispatch('player/changePlayerState', true)
     },
-    pause() {
-      this.soundManager.pause('base')
-      this.isPlay = false
+    async pause() {
+      await this.$store.dispatch('player/changePlayerState', false)
     }
   },
   computed: {
+    isPlay() {
+      return this.$store.getters['player/playerState']
+    },
     currentTrackData() {
       return this.$store.getters['player/currentTrackData']
     },
@@ -59,7 +59,7 @@ export default {
       return this.currentTrackData?.track?.coverUrl
     },
     currentTrackUrl() {
-      if (this.firstTrack) {
+      if (this.isFirstTrack) {
         return 'https://enazadevkz.cdnvideo.ru/tank1/sony/A10301A0004574902L_20210331042345765/resources/ad5a61f35b99.mp3'
       }
 
@@ -67,9 +67,17 @@ export default {
     }
   },
   watch: {
-    trackName() {
+    async trackName() {
+      this.isFirstTrack = !this.isFirstTrack
+      await this.pause()
       this.play()
-      this.firstTrack = !this.firstTrack
+    },
+    isPlay() {
+      if (this.isPlay) {
+        this.soundManager.play('base', this.currentTrackUrl)
+      } else {
+        this.soundManager.pause('base')
+      }
     }
   }
 
@@ -87,6 +95,7 @@ export default {
   bottom: 0;
   display: flex;
   align-items: center;
+  z-index: 3;
 
   @include phones {
     padding: 15px 50px;

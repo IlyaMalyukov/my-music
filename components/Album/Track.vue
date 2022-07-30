@@ -1,6 +1,19 @@
 <template lang="pug">
-  .track(@click.prevent='playTrack')
-    img.track__image(:src='track.coverUrl' :alt='track.name')
+  .track(@click.prevent='setToPlayer')
+    .track__button-wrapper
+      img.track__img(
+        :class='{"track__img_playing" : isCurrentTrack}'
+        :src='track.coverUrl'
+        :alt='track.name')
+      .track__buttons(v-if='isCurrentTrack')
+        button.track__button(
+          v-if='!isPlay'
+          @click.prevent='play')
+          .icon-play3.icon
+        button.track__button(
+          v-else
+          @click.prevent='pause')
+          .icon-pause2.icon
     .info
       .info__author {{author.name}}
       .info__name {{track.name}}
@@ -16,7 +29,7 @@ export default {
     people: Object
   },
   methods: {
-    playTrack() {
+    setToPlayer() {
       let trackData = {
         track: this.track,
         author: this.author,
@@ -25,6 +38,12 @@ export default {
       }
 
       this.$store.dispatch('player/assignTrackData', trackData)
+    },
+    play() {
+      this.$store.dispatch('player/changePlayerState', true)
+    },
+    pause() {
+      this.$store.dispatch('player/changePlayerState', false)
     }
   },
   computed: {
@@ -39,6 +58,13 @@ export default {
 
       return `${minutes}:${seconds}`
     },
+    isCurrentTrack() {
+      const currentTrack = this.$store.getters['player/currentTrackData'].track
+      return currentTrack?.name === this.track?.name
+    },
+    isPlay() {
+      return this.$store.getters['player/playerState']
+    },
     singers() {
       let singersNames = []
       singersNames.push(this.author?.name)
@@ -52,7 +78,7 @@ export default {
 
       return singersNames.join(', ')
     }
-  }
+  },
 }
 </script>
 
@@ -83,8 +109,38 @@ export default {
     max-width: 290px;
   }
 
-  &__image {
-    max-width: 60px;
+  &__button-wrapper {
+    position: relative;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    position: absolute;
+    width: 60px;
+    z-index: 1;
+
+    &_playing {
+      opacity: .5;
+    }
+  }
+
+  &__buttons {
+    z-index: 2;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: 2px solid #4a4a4a;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
