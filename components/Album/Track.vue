@@ -31,8 +31,14 @@ export default {
   },
   computed: {
     duration() {
-      const duration = this.$moment.duration(this.track.duration, 'seconds')._data
-      return `${duration.minutes}:${duration.seconds}`
+      // const duration = this.$moment.duration(this.track.duration, 'seconds')._data
+      // return `${duration.minutes}:${duration.seconds}`
+
+      const duration = this.track.duration
+      const minutes = Math.floor(duration / 60)
+      const seconds = String(duration % 60).padStart(2, '0')
+
+      return `${minutes}:${seconds}`
     }
   }
 }
