@@ -43,6 +43,10 @@
     color: #FFF;
     padding: 0 10px;
     font-size: 15px;
+
+    &:hover {
+      color: #82beff;
+    }
   }
 }
 
