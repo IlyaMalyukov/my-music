@@ -33,6 +33,7 @@ export default {
     duration() {
       // const duration = this.$moment.duration(this.track.duration, 'seconds')._data
       // return `${duration.minutes}:${duration.seconds}`
+      // Такой же код есть в карточке альбома на стр.альбома, вынести в helper
 
       const duration = this.track.duration
       const minutes = Math.floor(duration / 60)

@@ -13,6 +13,11 @@
 import api from '@/api/config'
 
 export default {
+  head() {
+    return {
+      title: this.album.name
+    }
+  },
   layout: 'default',
   asyncData: () => ({
     album: {},
@@ -44,7 +49,6 @@ export default {
     },
     prepareAlbum() {
       const singerId = this.album.peopleIds.find(i => {
-        // return this.people[i].typeName === 'Исполнитель'
         return this.people[i]
       })
 

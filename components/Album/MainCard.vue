@@ -2,9 +2,10 @@
 .card
   img.card__image(:src='album.coverUrl' alt='img')
   .info
-    .info__title {{album.name}}
-    .info__author {{author.name}}
-    .info__tracks Треков: {{album.trackCount}}
+    .info__title.info__text {{album.name}}
+    .info__author.info__text {{author.name}}
+    .info__tracks.info__text Треков: {{album.trackCount}}
+    .info__duration.info__text Длительность: {{duration}}
 </template>
 
 <script>
@@ -16,6 +17,16 @@ export default {
     },
     author: {
       type: Object
+    }
+  },
+  computed: {
+    duration() {
+      // Такой же код есть в карточке трека, вынести в helper
+      const duration = this.album.duration
+      const minutes = Math.floor(duration / 60)
+      const seconds = String(duration % 60).padStart(2, '0')
+
+      return `${minutes}:${seconds}`
     }
   }
 }
@@ -51,6 +62,18 @@ export default {
     align-self: flex-start;
   }
 
+  &__text {
+    padding-top: 7px;
+    color: #4F4F4F;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 400;
+
+    @include phones {
+      font-size: 14px;
+    }
+  }
+
   &__title {
     padding-top: 15px;
     color: #4F4F4F;
@@ -63,28 +86,13 @@ export default {
     }
   }
 
-  &__author {
-    padding-top: 7px;
-    color: #4F4F4F;
-    font-size: 19px;
-    line-height: 1.2;
-    font-weight: 400;
-
-    @include phones {
-      font-size: 14px;
-    }
+  &__tracks {
+    color: #A7A7A7;
   }
 
-  &__tracks {
-    padding-top: 7px;
+  &__duration {
+    font-size: 14px;
     color: #A7A7A7;
-    font-size: 19px;
-    line-height: 1.2;
-    font-weight: 400;
-
-    @include phones {
-      font-size: 14px;
-    }
   }
 }
 </style>
