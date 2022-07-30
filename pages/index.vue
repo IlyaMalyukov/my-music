@@ -1,6 +1,7 @@
 <template lang="pug">
   .main-page
-    Catalog
+    no-ssr
+      Catalog
 </template>
 
 <script>

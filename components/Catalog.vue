@@ -26,6 +26,8 @@ export default {
   async mounted() {
     await this.loadData()
     this.loading = false
+
+    this.preLoadData()
   },
   methods: {
     async loadData() {
@@ -36,6 +38,18 @@ export default {
       const newAlbums = this.copyAlbums
       this.allAlbums = Object.values({...this.allAlbums, ...newAlbums})
       this.preLoad = false
+    },
+    preLoadData() {
+      window.onscroll = () => {
+        let scrollTop = document.documentElement.scrollTop
+        let windowHeight = window.innerHeight
+        let documentHeight = document.documentElement.offsetHeight
+        let bottomOfWindow = scrollTop + windowHeight >= documentHeight
+
+        if (bottomOfWindow) {
+          this.loadData()
+        }
+      }
     },
     openAlbum(id) {
       this.$router.push(`/albums/${id}`)
