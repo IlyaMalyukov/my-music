@@ -5,11 +5,13 @@
       img.player__img(:src='cover')
       button.player__button(
         v-if='!isPlay'
-        @click.prevent='play')
+        @click.prevent='play'
+        @pointermove.prevent)
         .icon-play3.icon
       button.player__button(
         v-else
-        @click.prevent='pause')
+        @click.prevent='pause'
+        @pointermove.prevent)
         .icon-pause2.icon
     .track-info
       .track-info__text.track-info__author {{singers}}

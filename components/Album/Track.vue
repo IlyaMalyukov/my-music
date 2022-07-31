@@ -1,5 +1,7 @@
 <template lang="pug">
-  .track(@click.prevent='playerControl')
+  .track(
+    @click.prevent='playerControl'
+    @pointermove.prevent)
     .track__button-wrapper(v-if='isCurrentTrack')
       img.track__img(
         :class='{"track__img_playing" : isCurrentTrack}'
