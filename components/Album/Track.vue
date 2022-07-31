@@ -1,19 +1,23 @@
 <template lang="pug">
-  .track(@click.prevent='setToPlayer')
-    .track__button-wrapper
+  .track(@click.prevent='playerControl')
+    .track__button-wrapper(v-if='isCurrentTrack')
       img.track__img(
         :class='{"track__img_playing" : isCurrentTrack}'
         :src='track.coverUrl'
         :alt='track.name')
-      .track__buttons(v-if='isCurrentTrack')
-        button.track__button(
-          v-if='!isPlay'
-          @click.prevent='play')
+      .track__buttons()
+        button.track__button
+          .icon-play3.icon(v-if='!isPlay')
+          .icon-pause2.icon(v-else)
+    .track__button-wrapper(
+      v-else
+      class='track__button-wrapper-not-current')
+      img.track__img(
+        :src='track.coverUrl'
+        :alt='track.name')
+      .track__buttons
+        button.track__button
           .icon-play3.icon
-        button.track__button(
-          v-else
-          @click.prevent='pause')
-          .icon-pause2.icon
     .info
       .info__author {{author.name}}
       .info__name {{track.name}}
@@ -29,15 +33,28 @@ export default {
     people: Object
   },
   methods: {
+    playerControl() {
+      if (!this.isCurrentTrack) {
+        this.setToPlayer()
+      } else {
+        this.playerHandler()
+      }
+    },
     setToPlayer() {
-      let trackData = {
+      const trackData = {
         track: this.track,
         author: this.author,
         singers: this.singers,
         duration: this.duration
       }
-
       this.$store.dispatch('player/assignTrackData', trackData)
+    },
+    playerHandler() {
+      if (this.isPlay) {
+        this.pause()
+      } else {
+        this.play()
+      }
     },
     play() {
       this.$store.dispatch('player/changePlayerState', true)
@@ -93,7 +110,15 @@ export default {
   max-width: 377px;
 
   &:hover {
-    transform: scale(1.05)
+    .track__button-wrapper-not-current {
+      .track__buttons {
+        display: block;
+      }
+
+      .track__img {
+        opacity: .5;
+      }
+    }
   }
 
   @include desktop {
@@ -115,6 +140,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &-not-current {
+      .track__buttons {
+        display: none;
+      }
+    }
   }
 
   &__img {
