@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import {formatDuration} from '@/helpers/formatDuration'
+
 export default {
   name: 'MainCard',
   props: {
@@ -21,12 +23,7 @@ export default {
   },
   computed: {
     duration() {
-      // Такой же код есть в карточке трека, вынести в helper
-      const duration = this.album.duration
-      const minutes = Math.floor(duration / 60)
-      const seconds = String(duration % 60).padStart(2, '0')
-
-      return `${minutes}:${seconds}`
+      return formatDuration(this.album.duration)
     }
   }
 }

@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import {formatDuration} from '@/helpers/formatDuration'
+
 export default {
   name: 'Track',
   props: {
@@ -67,15 +69,7 @@ export default {
   },
   computed: {
     duration() {
-      // const duration = this.$moment.duration(this.track.duration, 'seconds')._data
-      // return `${duration.minutes}:${duration.seconds}`
-      // Такой же код есть в карточке альбома на стр.альбома, вынести в helper
-
-      const duration = this.track.duration
-      const minutes = Math.floor(duration / 60)
-      const seconds = String(duration % 60).padStart(2, '0')
-
-      return `${minutes}:${seconds}`
+      return formatDuration(this.track.duration)
     },
     isCurrentTrack() {
       const currentTrack = this.$store.getters['player/currentTrackData'].track
