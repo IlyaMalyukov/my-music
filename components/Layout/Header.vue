@@ -1,6 +1,6 @@
 <template lang="pug">
   .header
-    NuxtLink(to='/')
+    NuxtLink.logo-link(to='/')
       img.logo(:src='require("~/assets/images/logo.svg")')
     .nav
       NuxtLink.nav__link(to='/') Каталог
@@ -29,6 +29,11 @@
   @include phones-small {
     padding: 15px 15px;
   }
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
 }
 
 .nav {
